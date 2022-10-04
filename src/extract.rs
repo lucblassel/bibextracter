@@ -4,15 +4,38 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /// Possible citing commands in tex document
-static COMMANDS: [&str; 8] = [
+static COMMANDS: [&str; 29] = [
+    // Biblatex commands
     "cite",
     "parencite",
     "footcite",
-    "footcitenext",
+    "footcitetext",
     "textcite",
     "smartcite",
     "supercite",
     "autocite",
+    "citeauthor",
+    "citetitle",
+    "citeyear",
+    "citedate",
+    "citeurl",
+    "volcite",
+    "pvolcite",
+    "fvolcite",
+    "ftvolcite",
+    "svolcite",
+    "tvolcite",
+    "avolcite",
+    "fullcite",
+    "footfullcite",
+    "notecite",
+    "pnotecite",
+    "fnotecite",
+    // Natbib commands
+    "citep",
+    "citet",
+    "citeauthor",
+    "citeyear",
 ];
 
 /// Extracts cited keys from a tex document

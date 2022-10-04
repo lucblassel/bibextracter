@@ -21,3 +21,6 @@ Options:
   -h, --help       Print help information
   -V, --version    Print version information
 ```
+
+## Installation
+Make sure you have rust installed and use `cargo build --release` to compile binary. 
