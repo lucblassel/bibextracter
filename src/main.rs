@@ -1,6 +1,4 @@
 use clap::Parser;
-use std::collections::HashSet;
-use std::fs;
 
 pub mod biblio;
 pub mod extract;
@@ -31,26 +29,10 @@ struct Cli {
 fn main() {
     let args = Cli::parse();
 
-    let mut keys: HashSet<String> = HashSet::new();
+    let keys = extract::all_keys(args.tex).unwrap();
 
-    for tex in args.tex {
-        let tex_keys = extract::get_keys(&tex).unwrap();
-        keys.extend(tex_keys);
-    }
+    let bib = biblio::read(&args.bib);
+    let output_bib = biblio::subset(keys, bib);
 
-    let bib = biblio::read_biblio(&args.bib);
-    let output_bib = biblio::subset_biblio(keys, bib);
-
-    let bib_str: String;
-    if args.bibtex {
-        bib_str = output_bib.to_bibtex_string();
-    } else {
-        bib_str = output_bib.to_biblatex_string();
-    }
-
-    if args.out == "stdout" {
-        println!("{}", bib_str)
-    } else {
-        fs::write(args.out, bib_str).unwrap();
-    }
+    biblio::write(output_bib, args.out, args.bibtex).unwrap();
 }

@@ -2,7 +2,8 @@ use biblatex::Bibliography;
 use std::collections::HashSet;
 use std::fs;
 
-pub fn read_biblio(path: &str) -> Bibliography {
+/// Read a bib file
+pub fn read(path: &str) -> Bibliography {
     let biblio_f = fs::read_to_string(path).unwrap();
     let bib = Bibliography::parse(&biblio_f).unwrap();
 
@@ -10,7 +11,7 @@ pub fn read_biblio(path: &str) -> Bibliography {
 }
 
 /// Subsets a bib(la)tex bibliography given a set of keys
-pub fn subset_biblio(keys: HashSet<String>, source: Bibliography) -> Bibliography {
+pub fn subset(keys: HashSet<String>, source: Bibliography) -> Bibliography {
     let mut output_bib = Bibliography::new();
 
     for key in &keys {
@@ -23,4 +24,23 @@ pub fn subset_biblio(keys: HashSet<String>, source: Bibliography) -> Bibliograph
     }
 
     output_bib
+}
+
+/// Write bibliography to stdout or a file
+pub fn write(bib: Bibliography, filename: String, bibtex: bool) -> Option<std::io::Error> {
+    let bib_str: String;
+
+    if bibtex {
+        bib_str = bib.to_bibtex_string();
+    } else {
+        bib_str = bib.to_biblatex_string();
+    }
+
+    if filename == "stdout" {
+        println!("{}", bib_str);
+    } else {
+        fs::write(filename, bib_str).unwrap();
+    }
+
+    None
 }

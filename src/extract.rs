@@ -16,7 +16,7 @@ static COMMANDS: [&str; 8] = [
 ];
 
 /// Extracts cited keys from a tex document
-pub fn get_keys(filename: &str) -> Result<HashSet<String>, std::io::Error> {
+fn keys(filename: &str) -> Result<HashSet<String>, std::io::Error> {
     let joined = COMMANDS.join("|");
     let mut re_s = String::from(r"\\(");
     re_s.push_str(&joined);
@@ -41,4 +41,15 @@ pub fn get_keys(filename: &str) -> Result<HashSet<String>, std::io::Error> {
     }
 
     Ok(keys)
+}
+
+pub fn all_keys(filenames: Vec<String>) -> Result<HashSet<String>, std::io::Error> {
+    let mut all_keys: HashSet<String> = HashSet::new();
+
+    for filename in filenames {
+        let filename_keys = keys(&filename).unwrap();
+        all_keys.extend(filename_keys);
+    }
+
+    Ok(all_keys)
 }
