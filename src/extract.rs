@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 
 /// Possible citing commands in tex document
-static COMMANDS: [&str; 29] = [
+static COMMANDS: [&str; 30] = [
     // Biblatex commands
     "cite",
     "parencite",
@@ -14,6 +14,7 @@ static COMMANDS: [&str; 29] = [
     "smartcite",
     "supercite",
     "autocite",
+    "autocites",
     "citeauthor",
     "citetitle",
     "citeyear",

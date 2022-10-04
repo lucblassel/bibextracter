@@ -27,7 +27,7 @@ pub fn subset(keys: HashSet<String>, source: Bibliography) -> Bibliography {
 }
 
 /// Write bibliography to stdout or a file
-pub fn write(bib: Bibliography, filename: String, bibtex: bool) -> Option<std::io::Error> {
+pub fn write(bib: Bibliography, filename: String, bibtex: bool) {
     let bib_str: String;
 
     if bibtex {
@@ -41,6 +41,4 @@ pub fn write(bib: Bibliography, filename: String, bibtex: bool) -> Option<std::i
     } else {
         fs::write(filename, bib_str).unwrap();
     }
-
-    None
 }

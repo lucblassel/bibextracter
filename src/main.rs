@@ -34,5 +34,5 @@ fn main() {
     let bib = biblio::read(&args.bib);
     let output_bib = biblio::subset(keys, bib);
 
-    biblio::write(output_bib, args.out, args.bibtex).unwrap();
+    biblio::write(output_bib, args.out, args.bibtex);
 }

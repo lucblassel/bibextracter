@@ -40,8 +40,7 @@ dependencies = [
 [[package]]
 name = "biblatex"
 version = "0.6.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf929dfa863806bb6ca119e1f04961506aa03bafa1477cf5306d644959c2b807"
+source = "git+https://github.com/typst/biblatex.git#3700e36857317f282f621ec8459ca03707a65210"
 dependencies = [
  "chrono",
  "numerals",

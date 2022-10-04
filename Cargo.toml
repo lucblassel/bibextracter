@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 regex =  "1"
-biblatex = "0.6"
+# git dependency due to bug in parsing reserved latex characters, resolved but not yet released
+biblatex = { git = "https://github.com/typst/biblatex.git" } 
 clap = { version = "4.0", features = ["derive"]}
