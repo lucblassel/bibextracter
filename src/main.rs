@@ -24,6 +24,14 @@ struct Cli {
     /// Format the output as bibtex instead of biblatex
     #[arg(short = 'B', long)]
     bibtex: bool,
+
+    /// Output "clean looking" file, with indentations and aligned fields
+    #[arg(short, long)]
+    clean: bool,
+
+    /// Sort entries alphabetically
+    #[arg(short, long)]
+    sort: bool,
 }
 
 fn main() {
@@ -32,7 +40,13 @@ fn main() {
     let keys = extract::all_keys(args.tex).unwrap();
 
     let bib = biblio::read(&args.bib);
-    let output_bib = biblio::subset(keys, bib);
+    let output_bib = biblio::subset(&keys, bib);
 
-    biblio::write(output_bib, args.out, args.bibtex);
+    if args.sort {
+        let mut order = Vec::from_iter(keys);
+        order.sort();
+        biblio::write(output_bib, args.out, args.bibtex, args.clean, order);
+    } else {
+        biblio::write(output_bib, args.out, args.bibtex, args.clean, vec![]);
+    }
 }
